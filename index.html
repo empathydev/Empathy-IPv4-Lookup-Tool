@@ -25,34 +25,32 @@
 </p>
   <script>
     const lookupButton = document.getElementById('lookup-button');
-    const domainNamesDiv = document.getElementById('domain-names');
-    const ipInfoDiv = document.getElementById('ip-info');
+const domainNamesDiv = document.getElementById('domain-names');
+const ipInfoDiv = document.getElementById('ip-info');
 
-    lookupButton.addEventListener('click', function() {
-      const ipAddress = document.getElementById('ip-address').value;
+lookupButton.addEventListener('click', function() {
+  const ipAddress = document.getElementById('ip-address').value;
 
-      fetch(`https://api.viewdns.info/reverseip/?host=${ipAddress}&apikey=YOUR_API_KEY`)
-        .then(response => response.json())
-        .then(data => {
-          let domainNames = '';
-          for (const domainName of data.response.domains) {
-            domainNames += `<li>${domainName}</li>`;
-          }
-          domainNamesDiv.innerHTML = `<h2>Domain Names:</h2><ul>${domainNames}</ul>`;
-        });
+  fetch(`https://ipapi.co/${ipAddress}/json`)
+    .then(response => response.json())
+    .then(data => {
+      let domainNames = '';
+      for (const domain of data.domains) {
+        domainNames += `<li>${domain}</li>`;
+      }
+      domainNamesDiv.innerHTML = `<h2>Domain Names:</h2><ul>${domainNames}</ul>`;
 
-      fetch(`https://ipapi.co/${ipAddress}/json`)
-        .then(response => response.json())
-        .then(data => {
-          ipInfoDiv.innerHTML = `
-            <h2>IP Info:</h2>
-            Country: ${data.country_name}<br>
-            Region: ${data.region}<br>
-            City: ${data.city}<br>
-            Organization: ${data.org}
-          `;
-        });
+      ipInfoDiv.innerHTML = `
+        <h2>IP Info:</h2>
+        Country: ${data.country_name}<br>
+        Region: ${data.region}<br>
+        City: ${data.city}<br>
+        Organization: ${data.org}<br>
+        IPv4: ${data.ip}<br>
+        DNS: ${data.hostname}
+      `;
     });
+});
   </script>
   <h5>Developed By: ~𝐸𝓂𝓅𝒶𝓉𝒽𝓎~#0001</h5>
      <h5>© All Rights Reserved.</h5>
